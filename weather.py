@@ -16,5 +16,9 @@ def get_weather_info(city="Mumbai"):
 
 if __name__ == "__main__":
     city = input("Enter city name: ")
+
+    if not bool(city):
+        city = "Mumbai"
+
     data = get_weather_info(city)
     pprint(data)

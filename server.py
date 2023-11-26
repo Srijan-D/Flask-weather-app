@@ -7,13 +7,20 @@ app = Flask(__name__)
 @app.route("/")
 @app.route("/index")
 def index():
-    return "Hello index page"
+    return render_template("index.html")
 
 
 @app.route('/weather')
 def get_weather():
     city = request.args.get('city')
+    if not bool(city):
+        city = "Mumbai"
+
     weather_data = get_weather_info(city)
+
+    if not weather_data['cod'] == 200:
+        return "City not found!"
+
     return render_template(
         'weather.html',
         title=f"{weather_data['name']}",
